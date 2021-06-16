@@ -18,9 +18,13 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'name' => 'Seleção Brasileira',
-                'name' => 'Seleção Europeia',
-                'name' => 'Seleção Tailandesa',
             ],
+            [
+                'name' => 'Seleção Europeia',
+            ],
+            [
+                'name' => 'Seleção Tailandesa',
+            ]
         ];
 
         foreach($categories as $category) {
