@@ -17,7 +17,9 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Categoria X',
+                'name' => 'Seleção Brasileira',
+                'name' => 'Seleção Europeia',
+                'name' => 'Seleção Tailandesa',
             ],
         ];
 
