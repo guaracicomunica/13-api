@@ -14,10 +14,10 @@ class SizeSeeder extends Seeder
      */
     public function run()
     {
-        $roles = ['Pequeno', 'Médio', 'Grande'];
+        $sizes = ['Pequeno', 'Médio', 'Grande'];
 
-        foreach($roles as $role) {
-            Size::create(['name' => $role]);
+        foreach($sizes as $size) {
+            Size::create(['name' => $size]);
         }
     }
 }
