@@ -3,10 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use \App\Http\Controllers\API\UserController;
-use \App\Http\Controllers\API\CvliController;
-use \App\Http\Controllers\API\TypeCvliController;
+use \App\Http\Controllers\API\CategoryController;
 use \App\Http\Controllers\API\RoleController;
-use \App\Http\Controllers\API\DenunciationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,25 +36,13 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'cvlis'
+    'prefix' => 'categories'
 ], function ($router) {
-    Route::get('types', [TypeCvliController::class, 'index']);
-    Route::post('types', [TypeCvliController::class, 'store']);
-    Route::get('', [CvliController::class, 'index']);
-    Route::get('{id}', [CvliController::class, 'show']);
-    Route::post('', [CvliController::class, 'store']);
+    Route::get('', [CategoryController::class, 'index']);
 });
 
 Route::group([
     'prefix' => 'roles'
 ], function ($router) {
     Route::get('', [RoleController::class, 'index']);
-});
-
-Route::group([
-    'prefix' => 'denunciations'
-], function ($router) {
-    Route::get('', [DenunciationController::class, 'index']);
-    Route::get('{id}', [DenunciationController::class, 'show']);
-    Route::post('', [DenunciationController::class, 'store']);
 });
