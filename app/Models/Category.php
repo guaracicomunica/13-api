@@ -19,4 +19,9 @@ class Category extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'products_categories', 'category_id', 'user_id');
+    }
 }
