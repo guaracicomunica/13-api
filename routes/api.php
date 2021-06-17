@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\AuthController;
+use \App\Http\Controllers\API\UserController;
+use \App\Http\Controllers\API\CategoryController;
+use \App\Http\Controllers\API\RoleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +16,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'prefix' => 'auth'
+], function ($router) {
+    Route::get('unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('user', [AuthController::class, 'user']);
+});
+
+Route::group([
+    'prefix' => 'users'
+], function ($router) {
+    Route::get('', [UserController::class, 'index']);
+    Route::get('{id}', [UserController::class, 'show']);
+    Route::put('{id}', [UserController::class, 'update']);
+    Route::delete('{id}', [UserController::class, 'destroy']);
+});
+
+Route::group([
+    'prefix' => 'categories'
+], function ($router) {
+    Route::get('', [CategoryController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'roles'
+], function ($router) {
+    Route::get('', [RoleController::class, 'index']);
 });
