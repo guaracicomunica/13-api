@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cvli extends Model
+class Cart extends Model
 {
     use HasFactory;
 
-    protected $table = 'cvlis';
-
     protected $fillable = [
-      'cvli_type_id',
-      'latitude',
-      'user_id',
-      'longitude',
-      'title',
-      'description'
+        'cart_id',
+        'user_id',
+        'status_id',
+        'amount',
     ];
 }

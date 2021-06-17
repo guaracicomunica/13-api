@@ -75,8 +75,8 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    public function cvlis()
+    /*public function cvlis()
     {
         return $this->hasMany(Cvli::class, 'user_id');
-    }
+    }*/
 }
