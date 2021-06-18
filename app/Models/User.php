@@ -71,12 +71,11 @@ class User extends Authenticatable implements JWTSubject
             'name' => $this->name,
             'email' => $this->email,
             'cpf' => $this->cpf,
-            'phone' => $this->phone,
         ];
     }
 
-    /*public function cvlis()
+    public function orders()
     {
-        return $this->hasMany(Cvli::class, 'user_id');
-    }*/
+        return $this->hasMany(Order::class);
+    }
 }
