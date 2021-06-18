@@ -34,7 +34,7 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
 
-            $user = User::where('email', $request->input('email'))->with('cvlis')->first();
+            $user = User::where('email', $request->input('email'))->with('orders')->first();
 
             $result = array_merge(['user'=> $user],$this->respondWithToken($token));
 
@@ -61,7 +61,6 @@ class AuthController extends Controller
                 'name' => 'required|string|between:2,100',
                 'email' => 'required|string|email|max:100|unique:users',
                 'cpf' => 'required|string|max:25|unique:users',
-                'phone' => 'required|string|max:25|unique:users',
                 'password' => 'required|string|confirmed|min:6',
                 'role' => 'required|numeric'
             ]);
