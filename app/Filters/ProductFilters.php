@@ -24,4 +24,8 @@ class ProductFilters extends QueryFilters
     public function priceMax($term) {
         return $this->builder->where('price', '<=', $term);
     }
+
+    public function brandId($term) {
+        return $this->builder->where('brand_id', $term);
+    }
 }
