@@ -40,4 +40,8 @@ class ProductFilters extends QueryFilters
             return $query->where('categories.id', $term);
         });
     }
+
+    public function stars($term) {
+        return $this->builder->where('stars', $term);
+    }
 }
