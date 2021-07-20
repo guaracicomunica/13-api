@@ -13,9 +13,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(8);
+        $products = Product::paginate($request->per_page);
         return response()->json($products);
     }
 
