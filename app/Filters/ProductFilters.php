@@ -28,4 +28,10 @@ class ProductFilters extends QueryFilters
     public function brandId($term) {
         return $this->builder->where('brand_id', $term);
     }
+
+    public function sizeId($term) {
+        return $this->builder->whereHas('sizes', function ($query) use ($term) {
+            return $query->where('sizes.id', $term);
+        });
+    }
 }

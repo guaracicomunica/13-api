@@ -21,7 +21,12 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'products_categories', 'user_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id');
+    }
+
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class, 'products_sizes', 'product_id', 'size_id');
     }
 
     public function brand()
