@@ -5,17 +5,36 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Services\ProductService;
+use App\Filters\ProductFilters;
 
 class ProductController extends Controller
 {
     /**
+     * @var productService
+     */
+    protected $productService;
+
+    /**
+     * ProductController Constructor
+     *
+     * @param productService
+     *
+     */
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+    /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\ProductFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, ProductFilters $filters)
     {
-        $products = Product::paginate($request->per_page);
+        $products = $this->productService->applyFilters($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
