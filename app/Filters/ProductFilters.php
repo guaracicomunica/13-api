@@ -16,4 +16,12 @@ class ProductFilters extends QueryFilters
     public function name($term) {
         return $this->builder->where('name', 'LIKE', "%$term%");
     }
+
+    public function priceMin($term) {
+        return $this->builder->where('price', '>=', $term);
+    }
+
+    public function priceMax($term) {
+        return $this->builder->where('price', '<=', $term);
+    }
 }
