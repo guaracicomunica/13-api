@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Filters\Filterable;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use Filterable;
     use HasFactory;
 
     protected $fillable = [
