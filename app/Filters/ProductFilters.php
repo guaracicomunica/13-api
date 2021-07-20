@@ -34,4 +34,10 @@ class ProductFilters extends QueryFilters
             return $query->where('sizes.id', $term);
         });
     }
+
+    public function categoryId($term) {
+        return $this->builder->whereHas('categories', function ($query) use ($term) {
+            return $query->where('categories.id', $term);
+        });
+    }
 }
