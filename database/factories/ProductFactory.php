@@ -25,7 +25,8 @@ class ProductFactory extends Factory
             'name' => $this->faker->company,
             'description' => $this->faker->text,
             'price' => $this->faker->randomNumber(2),
-            'brand_id' => 1
+            'brand_id' => 1,
+            'material_id' => 1
         ];
     }
 }

@@ -17,6 +17,7 @@ class Product extends Model
         'description',
         'price',
         'brand_id',
+        'material_id',
         'stars'
     ];
 
@@ -33,5 +34,10 @@ class Product extends Model
     public function brand()
     {
         return $this->hasOne(Brand::class);
+    }
+
+    public function material()
+    {
+        return $this->hasOne(Material::class);
     }
 }

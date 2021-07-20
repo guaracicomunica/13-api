@@ -44,4 +44,8 @@ class ProductFilters extends QueryFilters
     public function stars($term) {
         return $this->builder->where('stars', $term);
     }
+
+    public function materialId($term) {
+        return $this->builder->where('material_id', $term);
+    }
 }

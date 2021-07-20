@@ -19,8 +19,13 @@ class CreateProductsTable extends Migration
             $table->mediumText('description');
             $table->float('price');
             $table->tinyInteger('stars')->default(0);
+
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands')->nullable();
+
+            $table->unsignedBigInteger('material_id');
+            $table->foreign('material_id')->references('id')->on('materials')->nullable();
+
             $table->timestamps();
         });
     }
