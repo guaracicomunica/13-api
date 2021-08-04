@@ -52,4 +52,5 @@ Route::group([
     'prefix' => 'products'
 ], function($router) {
     Route::get('', [ProductController::class, 'index']);
+    Route::get('{id}', [ProductController::class, 'show']);
 });

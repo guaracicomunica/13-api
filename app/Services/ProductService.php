@@ -16,4 +16,9 @@ class ProductService {
     {
         return $this->productRepository->getAll($filters);
     }
+
+    public function get($id)
+    {
+        return $this->productRepository->get($id);
+    }
 }
