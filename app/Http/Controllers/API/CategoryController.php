@@ -25,7 +25,7 @@ class CategoryController extends Controller
 
     public function index(){
         try {
-            $categories = Category::paginate(10);
+            $categories = Category::all();
             return response()->json($categories);
         } catch (\Throwable $e) {
             return response()->json(['error' => $e->getMessage()], 500);
