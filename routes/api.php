@@ -7,6 +7,7 @@ use \App\Http\Controllers\API\CategoryController;
 use \App\Http\Controllers\API\RoleController;
 use \App\Http\Controllers\API\ProductController;
 use \App\Http\Controllers\API\BrandController;
+use \App\Http\Controllers\API\SizeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,4 +60,10 @@ Route::group([
     'prefix' => 'brands'
 ], function($router) {
     Route::get('', [BrandController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'sizes'
+], function($router) {
+    Route::get('', [SizeController::class, 'index']);
 });
