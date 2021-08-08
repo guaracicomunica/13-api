@@ -67,7 +67,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = $this->productService->get($id);
+        return response()->json($product);
     }
 
     /**

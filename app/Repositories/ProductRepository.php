@@ -17,4 +17,9 @@ class ProductRepository {
     {
         return $this->product->filter($filters);
     }
+
+    public function get($id)
+    {
+        return $this->product->findOrFail($id);
+    }
 }
