@@ -25,19 +25,28 @@ class ProductFilters extends QueryFilters
     }
 
     public function brandId($term) {
-        return $this->builder->where('brand_id', $term);
+        if ($term != 0) {
+            return $this->builder->where('brand_id', $term);
+        }
+        return $this->builder->get();
     }
 
     public function sizeId($term) {
-        return $this->builder->whereHas('sizes', function ($query) use ($term) {
-            return $query->where('sizes.id', $term);
-        });
+        if ($term != 0) {
+            return $this->builder->whereHas('sizes', function ($query) use ($term) {
+                return $query->where('sizes.id', $term);
+            });
+        }
+        return $this->builder->get();
     }
 
     public function categoryId($term) {
-        return $this->builder->whereHas('categories', function ($query) use ($term) {
-            return $query->where('categories.id', $term);
-        });
+        if ($term != 0) {
+            return $this->builder->whereHas('categories', function ($query) use ($term) {
+                return $query->whereIn('categories.id', explode(",", $term));
+            });
+        }
+        return $this->builder->get();
     }
 
     public function stars($term) {
