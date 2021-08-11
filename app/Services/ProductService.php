@@ -26,4 +26,9 @@ class ProductService {
     {
         return $this->productRepository->getTrend();
     }
+
+    public function getLatest()
+    {
+        return $this->productRepository->getLatest();
+    }
 }

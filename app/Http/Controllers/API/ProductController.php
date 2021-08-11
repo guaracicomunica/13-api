@@ -52,6 +52,19 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\ProductFilters $filters
+     * @return \Illuminate\Http\Response
+     */
+    public function latest(Request $request)
+    {
+        $products = $this->productService->getLatest()->paginate($request->per_page);
+        return response()->json($products);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

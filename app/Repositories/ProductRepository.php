@@ -27,4 +27,9 @@ class ProductRepository {
     {
         return $this->product->orderBy('stars', 'desc');
     }
+
+    public function getLatest()
+    {
+        return $this->product->latest();
+    }
 }
