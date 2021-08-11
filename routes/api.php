@@ -9,6 +9,7 @@ use \App\Http\Controllers\API\ProductController;
 use \App\Http\Controllers\API\BrandController;
 use \App\Http\Controllers\API\SizeController;
 use \App\Http\Controllers\API\NewsletterController;
+use \App\Http\Controllers\API\MaterialController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -78,4 +79,10 @@ Route::group([
     'prefix' => 'sizes'
 ], function($router) {
     Route::get('', [SizeController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'materials'
+], function($router) {
+    Route::get('', [MaterialController::class, 'index']);
 });
