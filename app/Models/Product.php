@@ -40,4 +40,9 @@ class Product extends Model
     {
         return $this->hasOne(Material::class);
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'carts_products', 'cart_id', 'product_id');
+    }
 }

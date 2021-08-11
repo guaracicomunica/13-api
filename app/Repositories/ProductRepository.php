@@ -22,4 +22,9 @@ class ProductRepository {
     {
         return $this->product->findOrFail($id);
     }
+
+    public function getTrend()
+    {
+        return $this->product->where('stars', $this->product->max('stars'));
+    }
 }

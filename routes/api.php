@@ -54,6 +54,7 @@ Route::group([
     'prefix' => 'products'
 ], function($router) {
     Route::get('', [ProductController::class, 'index']);
+    Route::get('trend', [ProductController::class, 'trend']);
     Route::get('{id}', [ProductController::class, 'show']);
 });
 
