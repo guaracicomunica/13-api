@@ -8,6 +8,7 @@ use \App\Http\Controllers\API\RoleController;
 use \App\Http\Controllers\API\ProductController;
 use \App\Http\Controllers\API\BrandController;
 use \App\Http\Controllers\API\SizeController;
+use \App\Http\Controllers\API\NewsletterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,6 +58,13 @@ Route::group([
     Route::get('trend', [ProductController::class, 'trend']);
     Route::get('{id}', [ProductController::class, 'show']);
 });
+
+Route::group([
+    'prefix' => 'newsletter'
+], function($router) {
+    Route::post('subscribe', [NewsletterController::class, 'store']);
+});
+
 
 Route::group([
     'prefix' => 'brands'
