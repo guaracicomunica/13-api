@@ -63,6 +63,7 @@ Route::group([
     'prefix' => 'newsletter'
 ], function($router) {
     Route::post('subscribe', [NewsletterController::class, 'store']);
+    Route::post('promo/send', [NewsletterController::class, 'sendPromo']);
 });
 
 
