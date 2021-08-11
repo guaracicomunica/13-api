@@ -45,7 +45,7 @@ class ProductController extends Controller
      * @param  \App\Filters\ProductFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function trend(Request $request, ProductFilters $filters)
+    public function trend(Request $request)
     {
         $products = $this->productService->getTrend()->paginate($request->per_page);
         return response()->json($products);
