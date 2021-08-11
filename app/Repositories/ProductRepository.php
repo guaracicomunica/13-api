@@ -25,6 +25,6 @@ class ProductRepository {
 
     public function getTrend()
     {
-        return $this->product->where('stars', $this->product->max('stars'));
+        return $this->product->orderBy('stars', 'desc');
     }
 }
