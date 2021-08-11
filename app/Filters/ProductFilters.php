@@ -50,7 +50,10 @@ class ProductFilters extends QueryFilters
     }
 
     public function stars($term) {
-        return $this->builder->where('stars', $term);
+        if ($term != 0) {
+            return $this->builder->where('stars', $term);
+        }
+        return $this->builder->get();
     }
 
     public function materialId($term) {
