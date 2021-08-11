@@ -23,7 +23,7 @@ use \App\Http\Controllers\API\NewsletterController;
 Route::group([
     'prefix' => 'auth'
 ], function ($router) {
-    Route::get('unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
+    Route::post('unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);

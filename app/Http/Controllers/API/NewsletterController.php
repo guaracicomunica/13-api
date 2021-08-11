@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\DB;
 class NewsletterController extends Controller
 {
     /**
+     * Create a new NewsletterController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(
+            'auth:api',
+            ['except' => ['store']]
+        );
+    }
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
