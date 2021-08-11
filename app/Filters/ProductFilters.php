@@ -57,6 +57,9 @@ class ProductFilters extends QueryFilters
     }
 
     public function materialId($term) {
-        return $this->builder->where('material_id', $term);
+        if ($term != 0) {
+            return $this->builder->where('material_id', $term);
+        }
+        return $this->builder->get();
     }
 }
