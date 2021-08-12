@@ -10,6 +10,7 @@ use \App\Http\Controllers\API\BrandController;
 use \App\Http\Controllers\API\SizeController;
 use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
+use \App\Http\Controllers\API\ColorController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -85,4 +86,10 @@ Route::group([
     'prefix' => 'materials'
 ], function($router) {
     Route::get('', [MaterialController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'colors'
+], function($router) {
+    Route::get('', [ColorController::class, 'index']);
 });
