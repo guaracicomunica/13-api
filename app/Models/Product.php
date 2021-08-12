@@ -18,7 +18,8 @@ class Product extends Model
         'price',
         'brand_id',
         'material_id',
-        'stars'
+        'stars',
+        'color_id'
     ];
 
     public function categories()
@@ -39,6 +40,11 @@ class Product extends Model
     public function material()
     {
         return $this->hasOne(Material::class);
+    }
+
+    public function color()
+    {
+        return $this->hasOne(Color::class);
     }
 
     public function carts()

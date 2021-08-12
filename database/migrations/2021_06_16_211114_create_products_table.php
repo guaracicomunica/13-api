@@ -26,6 +26,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('material_id');
             $table->foreign('material_id')->references('id')->on('materials')->nullable();
 
+            $table->unsignedBigInteger('color_id');
+            $table->foreign('color_id')->references('id')->on('colors')->nullable();
+
             $table->timestamps();
         });
     }
