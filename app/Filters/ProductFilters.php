@@ -65,7 +65,7 @@ class ProductFilters extends QueryFilters
 
     public function colorId($term) {
         if ($term != 0) {
-            return $this->builder->where('color_id', $term);
+            return $this->builder->whereIn('color_id', explode(",", $term));
         }
         return $this->builder->get();
     }
