@@ -24,9 +24,11 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->company,
             'description' => $this->faker->text,
-            'price' => $this->faker->randomNumber(2),
-            'brand_id' => 1,
-            'material_id' => 1
+            'price' => $this->faker->randomFloat(2, 9.99, 299.99),
+            'brand_id' => $this->faker->numberBetween(1, 3),
+            'material_id' => $this->faker->numberBetween(1, 2),
+            'stars' => $this->faker->numberBetween(1, 5),
+            'color_id' => $this->faker->numberBetween(1, 9)
         ];
     }
 }
