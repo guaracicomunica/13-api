@@ -22,13 +22,23 @@ class ProductService {
         return $this->productRepository->get($id);
     }
 
-    public function getTrend()
+    public function getTrend($filters)
     {
-        return $this->productRepository->getTrend();
+        return $this->productRepository->getTrend($filters);
     }
 
-    public function getLatest()
+    public function getLatest($filters)
     {
-        return $this->productRepository->getLatest();
+        return $this->productRepository->getLatest($filters);
+    }
+
+    public function getLowestPrice($filters)
+    {
+        return $this->productRepository->getLowestPrice($filters);
+    }
+
+    public function getHighestPrice($filters)
+    {
+        return $this->productRepository->getHighestPrice($filters);
     }
 }

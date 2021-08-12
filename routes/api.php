@@ -59,6 +59,8 @@ Route::group([
     Route::get('', [ProductController::class, 'index']);
     Route::get('trend', [ProductController::class, 'trend']);
     Route::get('latest', [ProductController::class, 'latest']);
+    Route::get('lowestprice', [ProductController::class, 'lowestprice']);
+    Route::get('highestprice', [ProductController::class, 'highestprice']);
     Route::get('{id}', [ProductController::class, 'show']);
 });
 

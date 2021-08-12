@@ -45,9 +45,9 @@ class ProductController extends Controller
      * @param  \App\Filters\ProductFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function trend(Request $request)
+    public function trend(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getTrend()->paginate($request->per_page);
+        $products = $this->productService->getTrend($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -58,9 +58,35 @@ class ProductController extends Controller
      * @param  \App\Filters\ProductFilters $filters
      * @return \Illuminate\Http\Response
      */
-    public function latest(Request $request)
+    public function latest(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getLatest()->paginate($request->per_page);
+        $products = $this->productService->getLatest($filters)->paginate($request->per_page);
+        return response()->json($products);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\ProductFilters $filters
+     * @return \Illuminate\Http\Response
+     */
+    public function lowestPrice(Request $request, ProductFilters $filters)
+    {
+        $products = $this->productService->getLowestPrice($filters)->paginate($request->per_page);
+        return response()->json($products);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\ProductFilters $filters
+     * @return \Illuminate\Http\Response
+     */
+    public function highestPrice(Request $request, ProductFilters $filters)
+    {
+        $products = $this->productService->getHighestPrice($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 

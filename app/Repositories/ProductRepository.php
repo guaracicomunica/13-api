@@ -23,13 +23,23 @@ class ProductRepository {
         return $this->product->findOrFail($id);
     }
 
-    public function getTrend()
+    public function getTrend($filters)
     {
-        return $this->product->orderBy('stars', 'desc');
+        return $this->product->orderBy('stars', 'desc')->filter($filters);
     }
 
-    public function getLatest()
+    public function getLatest($filters)
     {
-        return $this->product->latest();
+        return $this->product->latest()->filter($filters);
+    }
+
+    public function getLowestPrice($filters)
+    {
+        return $this->product->orderBy('price', 'asc')->filter($filters);
+    }
+
+    public function getHighestPrice($filters)
+    {
+        return $this->product->orderBy('price', 'desc')->filter($filters);
     }
 }
