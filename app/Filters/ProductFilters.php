@@ -62,4 +62,11 @@ class ProductFilters extends QueryFilters
         }
         return $this->builder->get();
     }
+
+    public function colorId($term) {
+        if ($term != 0) {
+            return $this->builder->where('color_id', $term);
+        }
+        return $this->builder->get();
+    }
 }
