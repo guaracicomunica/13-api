@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             SizeSeeder::class,
             ColorSeeder::class,
+            ProductTypeSeeder::class,
             ProductSeeder::class,
             OrderStatusSeeder::class,
             ProductSizeSeeder::class

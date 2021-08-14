@@ -28,7 +28,8 @@ class ProductFactory extends Factory
             'brand_id' => $this->faker->numberBetween(1, 3),
             'material_id' => $this->faker->numberBetween(1, 2),
             'stars' => $this->faker->numberBetween(1, 5),
-            'color_id' => $this->faker->numberBetween(1, 9)
+            'color_id' => $this->faker->numberBetween(1, 9),
+            'product_type_id' => 1
         ];
     }
 }

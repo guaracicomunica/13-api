@@ -29,6 +29,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('color_id');
             $table->foreign('color_id')->references('id')->on('colors')->nullable();
 
+            $table->unsignedBigInteger('product_type_id');
+            $table->foreign('product_type_id')->references('id')->on('product_types')->nullable();
+
             $table->timestamps();
         });
     }
