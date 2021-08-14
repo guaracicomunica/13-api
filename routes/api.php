@@ -11,6 +11,8 @@ use \App\Http\Controllers\API\SizeController;
 use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
 use \App\Http\Controllers\API\ColorController;
+use App\Http\Controllers\API\ProductTypeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -94,4 +96,10 @@ Route::group([
     'prefix' => 'colors'
 ], function($router) {
     Route::get('', [ColorController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'product-types'
+], function($router) {
+    Route::get('', [ProductTypeController::class, 'index']);
 });
