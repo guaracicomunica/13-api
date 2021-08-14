@@ -69,4 +69,11 @@ class ProductFilters extends QueryFilters
         }
         return $this->builder->get();
     }
+
+    public function productTypeId($term) {
+        if ($term != 0) {
+            return $this->builder->where('product_type_id', $term);
+        }
+        return $this->builder->get();
+    }
 }
