@@ -108,7 +108,8 @@ class ProductController extends Controller
             'material_id' => 'required|numeric',
             'stars' => 'required|numeric',
             'color_id' => 'required|numeric',
-            'product_type_id' => 'required|numeric'
+            'product_type_id' => 'required|numeric',
+            'file' => 'required|image|mimes:jpeg,png,jpg,svg,gif'
         ]);
 
         if($validator->fails()){

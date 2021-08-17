@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\ProductRepository;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService {
 
@@ -24,7 +26,29 @@ class ProductService {
 
     public function store($data)
     {
-        return $this->productRepository->store($data);
+        try {
+            DB::beginTransaction();
+
+            $product = $this->productRepository->store($data);
+
+            $file = $data['file'];
+
+            $folder = "public/products/{$product->id}";
+
+            $fileName = "file.{$file->extension()}";
+
+            $file->storeAs($folder, $fileName);
+
+            $url = url(Storage::url("${folder}/${fileName}"));
+
+            DB::commit();
+
+            return $product;
+        } catch (Exception $ex)
+        {
+            DB::rollBack();
+            throw $ex;
+        }
     }
 
     public function getTrend($filters)
