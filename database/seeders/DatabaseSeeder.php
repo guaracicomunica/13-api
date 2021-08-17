@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ProductType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,19 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        if (App::environment('local'))
+        {
+            $this->call([UserSeeder::class]);
+        }
+
         $this->call([
-            UserSeeder::class,
             RoleSeeder::class,
             CategorySeeder::class,
             BrandSeeder::class,
             MaterialSeeder::class,
             SizeSeeder::class,
             ColorSeeder::class,
-            ProductTypeSeeder::class,
-            ProductSeeder::class,
-            OrderStatusSeeder::class,
-            ProductSizeSeeder::class,
-            ProductCategorySeeder::class
         ]);
+
+        if (App::environment('local'))
+        {
+            $this->call([
+                ProductTypeSeeder::class,
+                ProductSeeder::class,
+                ProductSizeSeeder::class,
+                ProductCategorySeeder::class
+            ]);
+        }
     }
 }
