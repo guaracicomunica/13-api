@@ -3,8 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class ProductRepository {
+class ProductRepository
+{
 
     protected $product;
 
@@ -25,7 +28,28 @@ class ProductRepository {
 
     public function store($data)
     {
-        return Product::create($data);
+        try {
+            DB::beginTransaction();
+
+            $product = $this->product->create($data);
+
+            $file = $data['file'];
+
+            $folder = "public/products/{$product->id}";
+
+            $fileName = "file.{$file->extension()}";
+
+            $file->storeAs($folder, $fileName);
+
+            //url(Storage::url("${folder}/${fileName}"));
+
+            DB::commit();
+
+            return $product;
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            throw $ex;
+        }
     }
 
     public function getTrend($filters)

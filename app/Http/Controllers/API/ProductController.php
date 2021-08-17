@@ -5,26 +5,26 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Services\ProductService;
+use App\Repositories\ProductRepository;
 use App\Filters\ProductFilters;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     /**
-     * @var productService
+     * @var productRepository
      */
-    protected $productService;
+    protected $productRepository;
 
     /**
      * ProductController Constructor
      *
-     * @param productService
+     * @param productRepository
      *
      */
-    public function __construct(ProductService $productService)
+    public function __construct(ProductRepository $productRepository)
     {
-        $this->productService = $productService;
+        $this->productRepository = $productRepository;
     }
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class ProductController extends Controller
      */
     public function index(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->applyFilters($filters)->paginate($request->per_page);
+        $products = $this->productRepository->getAll($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
      */
     public function trend(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getTrend($filters)->paginate($request->per_page);
+        $products = $this->productRepository->getTrend($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -61,7 +61,7 @@ class ProductController extends Controller
      */
     public function latest(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getLatest($filters)->paginate($request->per_page);
+        $products = $this->productRepository->getLatest($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -74,7 +74,7 @@ class ProductController extends Controller
      */
     public function lowestPrice(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getLowestPrice($filters)->paginate($request->per_page);
+        $products = $this->productRepository->getLowestPrice($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -87,7 +87,7 @@ class ProductController extends Controller
      */
     public function highestPrice(Request $request, ProductFilters $filters)
     {
-        $products = $this->productService->getHighestPrice($filters)->paginate($request->per_page);
+        $products = $this->productRepository->getHighestPrice($filters)->paginate($request->per_page);
         return response()->json($products);
     }
 
@@ -118,7 +118,7 @@ class ProductController extends Controller
 
         $data = $validator->validated();
 
-        $product = $this->productService->store($data);
+        $product = $this->productRepository->store($data);
 
         return response()->json($product, 201);
     }
@@ -131,7 +131,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->productService->get($id);
+        $product = $this->productRepository->get($id);
         return response()->json($product);
     }
 
