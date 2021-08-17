@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use App\Models\ProductFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +42,14 @@ class ProductRepository
 
             $file->storeAs($folder, $fileName);
 
-            $url = url(Storage::url("${folder}/${fileName}"));
+            $fromPath = Storage::url("${folder}/${fileName}");
+
+            ProductFile::create([
+                'product_id' => $product->id,
+                'path' => $fromPath
+            ]);
+
+            $url = url($fromPath);
 
             DB::commit();
 
