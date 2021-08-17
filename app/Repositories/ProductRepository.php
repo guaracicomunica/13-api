@@ -41,11 +41,15 @@ class ProductRepository
 
             $file->storeAs($folder, $fileName);
 
-            //url(Storage::url("${folder}/${fileName}"));
+            $url = url(Storage::url("${folder}/${fileName}"));
 
             DB::commit();
 
-            return $product;
+            return [
+                'name' => $product->name,
+                'price' => $product->price,
+                'file' => $url
+            ];
         } catch (\Exception $ex) {
             DB::rollBack();
             throw $ex;
