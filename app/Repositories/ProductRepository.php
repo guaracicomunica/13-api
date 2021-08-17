@@ -19,7 +19,7 @@ class ProductRepository
 
     public function getAll($filters)
     {
-        return $this->product->filter($filters);
+        return $this->product->filter($filters)->with('files');
     }
 
     public function get($id)
