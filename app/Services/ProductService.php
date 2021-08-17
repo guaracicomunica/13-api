@@ -22,6 +22,11 @@ class ProductService {
         return $this->productRepository->get($id);
     }
 
+    public function store($data)
+    {
+        return $this->productRepository->store($data);
+    }
+
     public function getTrend($filters)
     {
         return $this->productRepository->getTrend($filters);

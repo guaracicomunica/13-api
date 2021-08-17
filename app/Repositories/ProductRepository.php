@@ -23,6 +23,11 @@ class ProductRepository {
         return $this->product->findOrFail($id);
     }
 
+    public function store($data)
+    {
+        return Product::create($data);
+    }
+
     public function getTrend($filters)
     {
         return $this->product->orderBy('stars', 'desc')->filter($filters);

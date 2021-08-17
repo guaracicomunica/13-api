@@ -58,6 +58,7 @@ Route::group([
 Route::group([
     'prefix' => 'products'
 ], function($router) {
+    Route::post('', [ProductController::class, 'store']);
     Route::get('', [ProductController::class, 'index']);
     Route::get('trend', [ProductController::class, 'trend']);
     Route::get('latest', [ProductController::class, 'latest']);

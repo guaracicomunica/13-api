@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Services\ProductService;
 use App\Filters\ProductFilters;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -90,15 +91,6 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -108,7 +100,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100|unique:products',
+            'description' => 'required|string|between:20,200',
+            'price' => 'required|numeric',
+            'brand_id' => 'required|numeric',
+            'material_id' => 'required|numeric',
+            'stars' => 'required|numeric',
+            'color_id' => 'required|numeric',
+            'product_type_id' => 'required|numeric'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["error" => $validator->errors()->toJson()], 400);
+        }
+
+        $data = $validator->validated();
+
+        $product = $this->productService->store($data);
+
+        return response()->json($product, 201);
     }
 
     /**

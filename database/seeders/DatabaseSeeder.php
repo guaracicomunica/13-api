@@ -27,12 +27,12 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             SizeSeeder::class,
             ColorSeeder::class,
+            ProductTypeSeeder::class,
         ]);
 
         if (App::environment('local'))
         {
             $this->call([
-                ProductTypeSeeder::class,
                 ProductSeeder::class,
                 ProductSizeSeeder::class,
                 ProductCategorySeeder::class
