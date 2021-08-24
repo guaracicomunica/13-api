@@ -31,7 +31,11 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password']);
 
             if(!$token = auth('api')->attempt($credentials)){
-                return response()->json(['error' => 'Unauthorized'], 401);
+                $user = User::where('email', $request->input('email'))->with('orders')->first();
+                if($user != null) {
+                    return response()->json(['error' => 'Seu e-mail ou senha estão incorretos!'], 401);
+                }
+                return response()->json(['error' => 'Usuário não cadastrado, clique em "CADASTRA-SE" para realizar seu cadastro.'], 401);
             }
 
             $user = User::where('email', $request->input('email'))->with('orders')->first();

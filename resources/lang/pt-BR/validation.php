@@ -107,7 +107,7 @@ return [
         'string'  => 'O campo :attribute deve conter :size caracteres.',
         'array'   => 'O campo :attribute deve conter :size itens.',
     ],
-    'string'               => 'O campo :attribute deve ser uma string.',
+    'string'               => 'O campo :attribute deve ser uma "palavra".',
     'timezone'             => 'O campo :attribute deve conter um fuso horário válido.',
     'unique'               => 'O valor informado para o campo :attribute já está em uso.',
     'uploaded'             => 'Falha no Upload do arquivo :attribute.',
