@@ -28,6 +28,7 @@ class SizeController extends Controller
             $sizes = Size::all();
             return response()->json($sizes);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

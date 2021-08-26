@@ -32,7 +32,7 @@ class AuthController extends Controller
 
             if(!$token = auth('api')->attempt($credentials)){
                 $user = User::where('email', $request->input('email'))->with('orders')->first();
-                if($user != null) {
+                if($user != null || empty($request->input('email'))) {
                     return response()->json(['error' => 'Seu e-mail ou senha estão incorretos!'], 401);
                 }
                 return response()->json(['error' => 'Usuário não cadastrado, clique em "CADASTRA-SE" para realizar seu cadastro.'], 401);
@@ -44,6 +44,7 @@ class AuthController extends Controller
 
             return response()->json($result);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -54,6 +55,7 @@ class AuthController extends Controller
             auth('api')->logout();
             return response()->json(['message' => 'Successfully logged out']);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -100,6 +102,7 @@ class AuthController extends Controller
 
         } catch (ValidationException $e) {
             DB::rollBack();
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
@@ -112,6 +115,7 @@ class AuthController extends Controller
             $user->cvlis;
             return response()->json($user);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

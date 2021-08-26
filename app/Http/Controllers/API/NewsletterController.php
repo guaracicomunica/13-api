@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Newsletter;
 use App\Http\Controllers\Controller;
+use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -38,11 +39,15 @@ class NewsletterController extends Controller
             return response()->json(["error" => $validator->errors()->toJson()], 400);
         }
 
-        $newsletter = Newsletter::create(['email' => $request->email]);
+        try {
+            $newsletter = Newsletter::create(['email' => $request->email]);
 
-        return response()->json([
-            'message' => "{$request->email} successfully subscribed on newsletter",
-        ], 201);
+            return response()->json([
+                'message' => "{$request->email} successfully subscribed on newsletter",
+            ], 201);
+         }catch (\Throwable $e){
+            ExceptionLog::makeFromException($e)->save();
+        }
     }
 
     /**
@@ -62,17 +67,22 @@ class NewsletterController extends Controller
             return response()->json(["error" => $validator->errors()->toJson()], 400);
         }
 
-        $emails = DB::table('newsletter')
-        ->select('email')
-        ->get();
+        try {
 
-        foreach ($emails as $email) {
-            \Mail::to($email)->send(new \App\Mail\PromoMail($validator->validated()));
+            $emails = DB::table('newsletter')
+            ->select('email')
+            ->get();
+
+            foreach ($emails as $email) {
+                \Mail::to($email)->send(new \App\Mail\PromoMail($validator->validated()));
+            }
+
+            return response()->json([
+                'message' => "Promo sent!",
+            ], 200);
+        }catch (\Throwable $e){
+            ExceptionLog::makeFromException($e)->save();
         }
-
-        return response()->json([
-            'message' => "Promo sent!",
-        ], 200);
     }
 
     /**

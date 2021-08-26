@@ -21,6 +21,7 @@ class ProductTypeController extends Controller
             $product_types = ProductType::all();
             return response()->json($product_types);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
