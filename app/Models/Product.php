@@ -53,11 +53,6 @@ class Product extends Model
         return $this->hasOne(ProductType::class);
     }
 
-    public function carts()
-    {
-        return $this->belongsToMany(Cart::class, 'carts_products', 'product_id', 'cart_id');
-    }
-
     public function files()
     {
         return $this->hasMany(ProductFile::class);
