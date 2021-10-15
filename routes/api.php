@@ -7,6 +7,7 @@ use \App\Http\Controllers\API\CategoryController;
 use \App\Http\Controllers\API\RoleController;
 use \App\Http\Controllers\API\ProductController;
 use \App\Http\Controllers\API\BrandController;
+use App\Http\Controllers\API\CartController;
 use \App\Http\Controllers\API\SizeController;
 use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
@@ -103,4 +104,10 @@ Route::group([
     'prefix' => 'product-types'
 ], function($router) {
     Route::get('', [ProductTypeController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'carts'
+], function($router) {
+    Route::get('lastcart/{id}', [CartController::class, 'lastcart']);
 });
