@@ -32,4 +32,22 @@ class CartController extends Controller
                           
         return response()->json($last_cart);
     }
+
+    public function store(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+            'is_finished' => 'required|numeric'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["error" => $validator->errors()->toJson()], 400);
+        }
+
+        $data = $validator->validated();
+
+        $cart = $this->cart->create($data);
+
+        return response()->json($cart, 201);
+    }
 }

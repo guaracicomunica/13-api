@@ -110,4 +110,5 @@ Route::group([
     'prefix' => 'carts'
 ], function($router) {
     Route::get('lastcart/{id}', [CartController::class, 'lastcart']);
+    Route::post('', [CartController::class, 'store']);
 });
