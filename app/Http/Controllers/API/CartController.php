@@ -25,6 +25,7 @@ class CartController extends Controller
     public function lastCart($user_id)
     {
         $last_cart = $this->cart
+                          ->select('id')
                           ->where('user_id', $user_id)
                           ->where('is_finished', false)
                           ->latest()
