@@ -112,5 +112,6 @@ Route::group([
 ], function($router) {
     Route::get('lastcart/{id}', [CartController::class, 'lastcart']);
     Route::get('{id}', [CartProductController::class, 'listProductsByCart']);
+    Route::get('productsinfo/{id}', [CartProductController::class, 'listProductInformationByCart']);
     Route::post('', [CartController::class, 'store']);
 });

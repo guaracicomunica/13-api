@@ -32,4 +32,24 @@ class CartProductController extends Controller
                           
         return response()->json($products);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function listProductInformationByCart($cart_id)
+    {
+        $products_info = $this->cart_products
+                              ->join('products_sizes', 'carts_products.product_id', '=', 'products_sizes.id')
+                              ->join('sizes', 'products_sizes.size_id', '=', 'sizes.id')
+                              ->join('products', 'products_sizes.product_id', '=', 'products.id')
+                              ->join('colors', 'products.color_id', '=', 'colors.id')
+                              ->select('carts_products.id', 'carts_products.quantity', 'carts_products.product_id as size_id', 'products.price as unit_price', 'products.name as title', 'products.description', 'colors.hex_code as hex_code_color', 'colors.name as color', 'sizes.name as size')
+                              ->where('carts_products.cart_id', $cart_id)
+                              ->get();
+                          
+        return response()->json($products_info);
+    }
 }
