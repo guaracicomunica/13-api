@@ -8,6 +8,7 @@ use \App\Http\Controllers\API\RoleController;
 use \App\Http\Controllers\API\ProductController;
 use \App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\CartProductController;
 use \App\Http\Controllers\API\SizeController;
 use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
@@ -110,5 +111,6 @@ Route::group([
     'prefix' => 'carts'
 ], function($router) {
     Route::get('lastcart/{id}', [CartController::class, 'lastcart']);
+    Route::get('{id}', [CartProductController::class, 'listProductsByCart']);
     Route::post('', [CartController::class, 'store']);
 });
