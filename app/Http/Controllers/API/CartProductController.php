@@ -68,4 +68,17 @@ class CartProductController extends Controller
 
         return response(201);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteProductInCart($id)
+    {
+        $affected = $this->cart_products->where('id', $id)->delete();
+
+        return response($affected, 201);
+    }
 }
