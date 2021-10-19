@@ -52,4 +52,20 @@ class CartProductController extends Controller
                           
         return response()->json($products_info);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProductQuantity(Request $request, $id)
+    {
+        $affected = $this->cart_products
+                         ->where('id', $id)
+                         ->update(['quantity' => $request->input('quantity')]);
+
+        return response(201);
+    }
 }
