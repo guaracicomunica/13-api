@@ -114,6 +114,7 @@ Route::group([
     Route::post('', [CartController::class, 'store']);
     Route::get('lastcart/{id}', [CartController::class, 'lastcart']);
     Route::get('productsinfo/{id}', [CartProductController::class, 'listProductInformationByCart']);
+    Route::post('product/', [CartProductController::class, 'store']);
     Route::put('product/{id}', [CartProductController::class, 'updateProductQuantity']);
     Route::delete('product/{id}', [CartProductController::class, 'deleteProductInCart']);
 });

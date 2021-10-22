@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\CartProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CartProductController extends Controller
 {
@@ -51,6 +52,25 @@ class CartProductController extends Controller
                               ->get();
                           
         return response()->json($products_info);
+    }
+
+    public function store(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'cart_id' => 'required|numeric',
+            'product_id' => 'required|numeric',
+            'quantity' => 'required|numeric'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["error" => $validator->errors()->toJson()], 400);
+        }
+
+        $data = $validator->validated();
+
+        $cart_product = $this->cart_products->create($data);
+
+        return response()->json($cart_product, 201);
     }
 
     /**
