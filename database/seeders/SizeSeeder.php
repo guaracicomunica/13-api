@@ -14,7 +14,7 @@ class SizeSeeder extends Seeder
      */
     public function run()
     {
-        $sizes = ['Pequeno', 'Médio', 'Grande'];
+        $sizes = ['PP', 'P', 'M', 'G', 'GG'];
 
         foreach($sizes as $size) {
             Size::create(['name' => $size]);

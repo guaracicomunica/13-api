@@ -23,7 +23,7 @@ class ProductSizeFactory extends Factory
     {
         return [
             'product_id' => $this->faker->numberBetween(1, 1000),
-            'size_id' => $this->faker->numberBetween(1, 3)
+            'size_id' => $this->faker->numberBetween(1, 5)
         ];
     }
 }
