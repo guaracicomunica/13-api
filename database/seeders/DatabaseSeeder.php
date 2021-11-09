@@ -15,8 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (App::environment('local'))
-        {
+        if (App::environment('local') || App::environment('homolog')) {
             $this->call([UserSeeder::class]);
         }
 
@@ -30,8 +29,7 @@ class DatabaseSeeder extends Seeder
             ProductTypeSeeder::class,
         ]);
 
-        if (App::environment('local'))
-        {
+        if (App::environment('local')) {
             $this->call([
                 ProductSeeder::class,
                 ProductSizeSeeder::class,
