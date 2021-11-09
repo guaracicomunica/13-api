@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProductType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
 
@@ -15,9 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([UserSeeder::class]);
-
         $this->call([
+            UserSeeder::class,
             RoleSeeder::class,
             CategorySeeder::class,
             BrandSeeder::class,
