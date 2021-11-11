@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Filters\ProductFilters;
 use Illuminate\Support\Facades\Validator;
+use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 
 class ProductController extends Controller
 {
@@ -35,8 +36,13 @@ class ProductController extends Controller
      */
     public function index(Request $request, ProductFilters $filters)
     {
-        $products = $this->productRepository->getAll($filters)->paginate($request->per_page);
-        return response()->json($products);
+        try{
+            $products = $this->productRepository->getAll($filters)->paginate($request->per_page);
+            return response()->json($products);
+        }catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
+        }
+
     }
 
     /**

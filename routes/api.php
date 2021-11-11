@@ -14,6 +14,7 @@ use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
 use \App\Http\Controllers\API\ColorController;
 use App\Http\Controllers\API\ProductTypeController;
+use \App\Http\Controllers\API\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,4 +118,19 @@ Route::group([
     Route::post('product/', [CartProductController::class, 'store']);
     Route::put('product/{id}', [CartProductController::class, 'updateProductQuantity']);
     Route::delete('product/{id}', [CartProductController::class, 'deleteProductInCart']);
+});
+
+
+Route::group([
+    'prefix' => 'transaction'
+], function($router) {
+    Route::post('sendEmail', [TransactionController::class, 'sendEmailOfSucessTransaction']);
+});
+
+
+
+Route::group([
+    'prefix' => 'logs'
+], function($router) {
+    Route::get('', [\App\Http\Controllers\API\logs\ExceptionLogsController::class, 'GetAll']);
 });

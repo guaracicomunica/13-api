@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Color;
+use Binarcode\LaravelDeveloper\Models\ExceptionLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,7 @@ class ColorController extends Controller
             $colors = Color::all();
             return response()->json($colors);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

@@ -25,6 +25,7 @@ class RoleController extends Controller
             $users = Role::paginate(10);
             return response()->json($users);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
