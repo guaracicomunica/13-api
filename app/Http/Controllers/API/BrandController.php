@@ -26,8 +26,10 @@ class BrandController extends Controller
 
     public function index(){
         try {
+
             $brands = Brand::all();
             return response()->json($brands);
+
         } catch (\Throwable $e) {
 
             ExceptionLog::makeFromException($e)->save();

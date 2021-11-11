@@ -12,6 +12,7 @@ use \App\Http\Controllers\API\NewsletterController;
 use \App\Http\Controllers\API\MaterialController;
 use \App\Http\Controllers\API\ColorController;
 use App\Http\Controllers\API\ProductTypeController;
+use \App\Http\Controllers\API\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,4 +104,19 @@ Route::group([
     'prefix' => 'product-types'
 ], function($router) {
     Route::get('', [ProductTypeController::class, 'index']);
+});
+
+
+Route::group([
+    'prefix' => 'transaction'
+], function($router) {
+    Route::post('sendEmail', [TransactionController::class, 'sendEmailOfSucessTransaction']);
+});
+
+
+
+Route::group([
+    'prefix' => 'logs'
+], function($router) {
+    Route::get('', [\App\Http\Controllers\API\logs\ExceptionLogsController::class, 'GetAll']);
 });
