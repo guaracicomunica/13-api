@@ -32,6 +32,7 @@ class UserController extends Controller
             $users = User::paginate(10);
             return response()->json($users);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -50,6 +51,7 @@ class UserController extends Controller
             $this->authorize('view', $user);
             return response()->json($user);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -86,6 +88,7 @@ class UserController extends Controller
             ], 200);
 
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -110,6 +113,7 @@ class UserController extends Controller
                 'user' => $user,
             ]);
         } catch (\Throwable $e) {
+            ExceptionLog::makeFromException($e)->save();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
