@@ -29,6 +29,6 @@ class TransactionEmail extends Mailable
     public function build()
     {
         return $this->subject('Parabéns sua compra foi efetuada com sucesso!')->view('emails.promo')
-            ->from('diogo.libras43@gmail.com');
+            ->from('guaracicomunica@gmail.com');
     }
 }

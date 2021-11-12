@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Validator;
 class TransactionController extends Controller
 {
 
+    public function test(){
+        return "testado";
+    }
+
     /**
      * Send a Email of Sucess Transaction.
      *
@@ -32,23 +36,21 @@ class TransactionController extends Controller
 
             $pagarmeService = new PagarmeRequestService();
 
-            $transaction = $pagarmeService->getTransaction("14101069");
+            $transaction = $pagarmeService->getTransaction($request->tokenOrIdTransaction);
 
             if(isset($transaction['errors'])){
-                 throw new \Exception('transação não encontada!', 404);
+                 throw new \Exception('transação não encontrada!', 404);
             }
 
-            $email = "profissional.diogolima@gmail.com";
+            $email = $transaction['customer']['email'];
 
-            $array = array('title' => 'CARAAA VOCÊ TEVE UMA TRANSAÇÃO DE SUCESSO',
-                            'body' => 'TUDO para MIM!');
+            $array = array('title' => 'Esse email só chega para gays - Geral.com',
+                            'body' => 'Se você recebeu esse e-mail é porque você tem uma transação de suce$$o!');
 
-            //   foreach ($emails as $email) {
             \Mail::to($email)->send(new TransactionEmail($array));
-           // }
 
             return response()->json([
-                'message' => "Promo sent!",
+                'message' => "Transação realizada com sucesso!",
             ], 200);
         }catch (\Throwable $e){
 
