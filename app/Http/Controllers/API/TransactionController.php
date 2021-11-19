@@ -25,8 +25,12 @@ class TransactionController extends Controller
      */
     public function sendEmailOfSucessTransaction(Request $request){
 
+        //dd($request->all());
+
         $validator = Validator::make($request->all(), [
-            'tokenOrIdTransaction' => 'required|string',
+            'email' => 'required|string',
+            'success' => 'required|boolean',
+            'tokenOrIdTransaction' => 'exclude_if:success,false| required|string'
         ]);
 
         if($validator->fails()){
@@ -42,15 +46,50 @@ class TransactionController extends Controller
                  throw new \Exception('transação não encontrada!', 404);
             }
 
-            $email = $transaction['customer']['email'];
 
-            $array = array('title' => 'Esse email só chega para gays - Geral.com',
-                            'body' => 'Se você recebeu esse e-mail é porque você tem uma transação de suce$$o!');
 
-            \Mail::to($email)->send(new TransactionEmail($array));
+            $subject ="";
+            $title = "";
+            $message = "Transação realizada com sucesso!";
+            if($request->success == true){
+                $items = $transaction['items'];
+                $subject = "Compra confirmada - Geral.com";
+
+                $body = "Os seguintes items foram confirmados para a compra:  ";
+
+                foreach ($items as $item)
+                {
+                    $preco = $item['unit_price'];
+                    $preco = $preco/100;
+                    $preco = sprintf($preco);
+                    $preco = " -> preço: ".$preco;
+
+                    $quantidade = sprintf($item['quantity']);
+                    $quantidade = " ->  quantidade:  ". $quantidade;
+
+                    $body = $body . $item['title'] . $preco .$quantidade . "\n";
+
+                }
+
+
+            }else{
+
+                $subject = "Falha ao efetuar sua compra - Geral.com";
+
+                $body = "Não foi possível confirmar a sua compra. \n";
+
+                $message = "Falha ao efetuar sua transação";
+            }
+
+
+            $array = array( 'subject' => $subject,
+                            'title' => $title,
+                            'body' => $body);
+
+            \Mail::to($request->email)->send(new TransactionEmail($array));
 
             return response()->json([
-                'message' => "Transação realizada com sucesso!",
+                'message' => $message,
             ], 200);
         }catch (\Throwable $e){
 
@@ -61,4 +100,6 @@ class TransactionController extends Controller
             ], 400);
         }
     }
+
+
 }
