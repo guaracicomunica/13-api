@@ -12,47 +12,82 @@ use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
-
     /**
      * Send a Email of Sucess Transaction.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function sendEmailOfSucessTransaction(Request $request){
+    public function sendEmailOfSucessTransaction(Request $request)
+    {
+
 
         $validator = Validator::make($request->all(), [
-            'tokenOrIdTransaction' => 'required|string',
+            'email' => 'required|string',
+            'success' => 'required|boolean',
+            'tokenOrIdTransaction' => 'exclude_if:success,false| required|string'
+
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(["error" => $validator->errors()->toJson()], 400);
         }
         try {
 
             $pagarmeService = new PagarmeRequestService();
 
-            $transaction = $pagarmeService->getTransaction("14101069");
+            $transaction = $pagarmeService->getTransaction($request->tokenOrIdTransaction);
 
-            if(isset($transaction['errors'])){
-                 throw new \Exception('transação não encontada!', 404);
+            if (isset($transaction['errors'])) {
+                throw new \Exception('transação não encontrada!', 404);
             }
 
-            $email = "profissional.diogolima@gmail.com";
 
-            $array = array('title' => 'CARAAA VOCÊ TEVE UMA TRANSAÇÃO DE SUCESSO',
-                            'body' => 'TUDO para MIM!');
+            $subject = "";
+            $title = "";
+            $message = "Transação realizada com sucesso!";
+            if ($request->success == true) {
+                $items = $transaction['items'];
+                $subject = "Compra confirmada - Geral.com";
 
-            //   foreach ($emails as $email) {
-            \Mail::to($email)->send(new TransactionEmail($array));
-           // }
+                $body = "Os seguintes items foram confirmados para a compra:  ";
+
+                foreach ($items as $item) {
+                    $preco = $item['unit_price'];
+                    $preco = $preco / 100;
+                    $preco = sprintf($preco);
+                    $preco = " -> preço: " . $preco;
+
+                    $quantidade = sprintf($item['quantity']);
+                    $quantidade = " ->  quantidade:  " . $quantidade;
+
+                    $body = $body . $item['title'] . $preco . $quantidade . "\n";
+
+                }
+
+
+            } else {
+
+                $subject = "Falha ao efetuar sua compra - Geral.com";
+
+                $body = "Não foi possível confirmar a sua compra. \n";
+
+                $message = "Falha ao efetuar sua transação";
+            }
+
+
+            $array = array('subject' => $subject,
+                'title' => $title,
+                'body' => $body);
+
+            \Mail::to($request->email)->send(new TransactionEmail($array));
 
             return response()->json([
-                'message' => "Promo sent!",
+                'message' => $message,
             ], 200);
-        }catch (\Throwable $e){
+        } catch (\Throwable $e) {
 
-            if($e->getCode() > 400 && $e->getCode() < 500) ExceptionLog::makeFromException($e)->save();
+            if ($e->getCode() > 400 && $e->getCode() < 500) ExceptionLog::makeFromException($e)->save();
 
             return response()->json([
                 'message' => $e->getMessage(),
