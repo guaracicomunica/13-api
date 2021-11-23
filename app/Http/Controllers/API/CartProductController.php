@@ -74,7 +74,7 @@ class CartProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the product quantity in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -85,6 +85,22 @@ class CartProductController extends Controller
         $affected = $this->cart_products
                          ->where('id', $id)
                          ->update(['quantity' => $request->input('quantity')]);
+
+        return response(201);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProductSize(Request $request, $id)
+    {
+        $affected = $this->cart_products
+                         ->where('id', $id)
+                         ->update(['product_id' => $request->input('product_size')]);
 
         return response(201);
     }
