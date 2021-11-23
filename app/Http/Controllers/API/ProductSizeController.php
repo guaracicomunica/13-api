@@ -26,7 +26,7 @@ class ProductSizeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function listProductSizes($product_id)
+    public function listProductSizeNames($product_id)
     {
         $sizes = $this->products_sizes
                       ->join('sizes', 'products_sizes.size_id', '=', 'sizes.id')
