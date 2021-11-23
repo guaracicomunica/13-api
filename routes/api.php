@@ -113,6 +113,7 @@ Route::group([
     'prefix' => 'product-sizes'
 ], function($router) {
     Route::get('{id}', [ProductSizeController::class, 'listProductSizeNames']);
+    Route::get('available-products/{id}', [ProductSizeController::class, 'listAvailableProductSizes']);
 });
 
 Route::group([

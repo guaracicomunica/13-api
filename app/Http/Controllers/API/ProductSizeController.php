@@ -36,4 +36,20 @@ class ProductSizeController extends Controller
         
         return response()->json($sizes);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function listAvailableProductSizes($product_id)
+    {
+        $sizes = $this->products_sizes
+                      ->select('products_sizes.id as product_size_id', 'products_sizes.size_id')
+                      ->where('products_sizes.product_id', $product_id)
+                      ->get();
+        
+        return response()->json($sizes);
+    }
 }
