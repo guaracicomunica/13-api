@@ -25,8 +25,7 @@ class CartProductController extends Controller
     public function listProductsByCart($cart_id)
     {
         $products = $this->cart_products
-                         ->join('products_sizes', 'carts_products.product_id', '=', 'products_sizes.id')
-                         ->join('products', 'products_sizes.product_id', '=', 'products.id')
+                         ->join('products', 'carts_products.product_id', '=', 'products.id')
                          ->select('carts_products.id', 'carts_products.quantity', 'carts_products.product_id', 'carts_products.product_size_id', 'products.price')
                          ->where('carts_products.cart_id', $cart_id)
                          ->get();
