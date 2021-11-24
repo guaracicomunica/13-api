@@ -42,10 +42,10 @@ class CartProductController extends Controller
     public function listProductInformationByCart($cart_id)
     {
         $products_info = $this->cart_products
-                              ->join('products_sizes', 'carts_products.product_id', '=', 'products_sizes.id')
-                              ->join('sizes', 'products_sizes.size_id', '=', 'sizes.id')
-                              ->join('products', 'products_sizes.product_id', '=', 'products.id')
+                              ->join('products', 'carts_products.product_id', '=', 'products.id')
                               ->join('colors', 'products.color_id', '=', 'colors.id')
+                              ->leftJoin('products_sizes', 'carts_products.product_size_id', '=', 'products_sizes.id')
+                              ->leftJoin('sizes', 'products_sizes.size_id', '=', 'sizes.id')
                               ->select('carts_products.id', 'carts_products.product_id', 'carts_products.quantity', 'sizes.id as size_id', 'products.price as unit_price', 'products.name as title', 'products.description', 'colors.hex_code as hex_code_color', 'colors.name as color')
                               ->where('carts_products.cart_id', $cart_id)
                               ->get();
