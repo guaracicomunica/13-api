@@ -18,6 +18,6 @@ class ProductSize extends Model
 
     public function carts()
     {
-        return $this->belongsToMany(Cart::class, 'carts_products', 'product_id', 'cart_id');
+        return $this->belongsToMany(Cart::class, 'carts_products', 'product_size_id', 'cart_id');
     }
 }
