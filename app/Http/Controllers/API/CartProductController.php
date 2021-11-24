@@ -58,6 +58,7 @@ class CartProductController extends Controller
         $validator = Validator::make($request->all(), [
             'cart_id' => 'required|numeric',
             'product_id' => 'required|numeric',
+            'product_size_id' => 'nullable|numeric',
             'quantity' => 'required|numeric'
         ]);
 
