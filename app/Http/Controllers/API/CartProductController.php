@@ -27,7 +27,7 @@ class CartProductController extends Controller
         $products = $this->cart_products
                          ->join('products_sizes', 'carts_products.product_id', '=', 'products_sizes.id')
                          ->join('products', 'products_sizes.product_id', '=', 'products.id')
-                         ->select('carts_products.id', 'carts_products.quantity', 'carts_products.product_id as product_size_id', 'products.price')
+                         ->select('carts_products.id', 'carts_products.quantity', 'carts_products.product_id', 'carts_products.product_size_id', 'products.price')
                          ->where('carts_products.cart_id', $cart_id)
                          ->get();
                           
@@ -47,7 +47,7 @@ class CartProductController extends Controller
                               ->join('sizes', 'products_sizes.size_id', '=', 'sizes.id')
                               ->join('products', 'products_sizes.product_id', '=', 'products.id')
                               ->join('colors', 'products.color_id', '=', 'colors.id')
-                              ->select('carts_products.id', 'carts_products.quantity', 'sizes.id as size_id', 'products.price as unit_price', 'products.id as product_id', 'products.name as title', 'products.description', 'colors.hex_code as hex_code_color', 'colors.name as color')
+                              ->select('carts_products.id', 'carts_products.product_id', 'carts_products.quantity', 'sizes.id as size_id', 'products.price as unit_price', 'products.name as title', 'products.description', 'colors.hex_code as hex_code_color', 'colors.name as color')
                               ->where('carts_products.cart_id', $cart_id)
                               ->get();
                           
@@ -100,7 +100,7 @@ class CartProductController extends Controller
     {
         $affected = $this->cart_products
                          ->where('id', $id)
-                         ->update(['product_id' => $request->input('product_size')]);
+                         ->update(['product_size_id' => $request->input('product_size')]);
 
         return response(201);
     }
